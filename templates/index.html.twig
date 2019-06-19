@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+        <table class="table">
+        <tr>
+            <th>Actions</th>
+            <th>Score</th>
+            <th>Title</th>
+            <th>Delete</th>
+        </tr>
+        {% for reddit in posts%}
+            <tr>
+                <td>+ - </td>
+                <td>{{ reddit.score }} </td>
+                <td>{{ reddit.post }} </td>
+                <td>
+                    <form action="/delete/{{ reddit.id }}" method="post">
+                        <button type="submit">delete</button>
+                    </form>
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        {% if showError %}
+            <div>Error: reddit should contain sg</div>
+        {% endif %}
+
+        <form action="/save" method="post">
+            <div class="form-group">
+                <label for="post">Post</label>
+                <input type="text" name="post" id="post" class="form-control">
+            </div>
+
+            <button type="submit">Save</button>
+        </form>
+
+    {% endblock %}
