@@ -64,4 +64,18 @@ class MainController extends AbstractController {
         return $this -> redirectToRoute('main');
 
     }
+
+    /**
+     * @Route("/delete/{id}", name="delete_reddit", methods={"POST"})
+     */
+        public function delete($id) {
+            $reddit = $this->redditPostRepository->find($id);
+            if ($reddit == null) {
+                return new Response('', 204);
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($reddit);
+            $entityManager->flush();
+            return $this -> redirectToRoute('main');
+        }
 }
